@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsynchronousClientSocket", "AsynchronousClientSocket\AsynchronousClientSocket.csproj", "{A991B9EB-ECBE-4CBC-A643-2336D0847961}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A991B9EB-ECBE-4CBC-A643-2336D0847961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A991B9EB-ECBE-4CBC-A643-2336D0847961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A991B9EB-ECBE-4CBC-A643-2336D0847961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A991B9EB-ECBE-4CBC-A643-2336D0847961}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
