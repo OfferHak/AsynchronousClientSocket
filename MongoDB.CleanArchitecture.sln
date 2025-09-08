@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.API", "MongoDB.API\MongoDB.API.csproj", "{9B52819E-035C-4B1D-850E-69A0BED0923B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Application", "MongoDB.Application\MongoDB.Application.csproj", "{5175E7F9-2BB4-4933-8323-3D1DDB8377F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Domain", "MongoDB.Domain\MongoDB.Domain.csproj", "{7A0D33B7-55EA-45AA-9C52-4DA8B352540C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Infrastructure", "MongoDB.Infrastructure\MongoDB.Infrastructure.csproj", "{5A6253A8-4C2A-43D7-8172-5BA7AB6100C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Tests", "MongoDB.Tests\MongoDB.Tests.csproj", "{329F6B6C-5EC3-44B4-93EE-6B275A6B9CC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B52819E-035C-4B1D-850E-69A0BED0923B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B52819E-035C-4B1D-850E-69A0BED0923B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B52819E-035C-4B1D-850E-69A0BED0923B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B52819E-035C-4B1D-850E-69A0BED0923B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5175E7F9-2BB4-4933-8323-3D1DDB8377F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5175E7F9-2BB4-4933-8323-3D1DDB8377F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5175E7F9-2BB4-4933-8323-3D1DDB8377F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5175E7F9-2BB4-4933-8323-3D1DDB8377F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A0D33B7-55EA-45AA-9C52-4DA8B352540C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A0D33B7-55EA-45AA-9C52-4DA8B352540C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A0D33B7-55EA-45AA-9C52-4DA8B352540C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A0D33B7-55EA-45AA-9C52-4DA8B352540C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A6253A8-4C2A-43D7-8172-5BA7AB6100C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6253A8-4C2A-43D7-8172-5BA7AB6100C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6253A8-4C2A-43D7-8172-5BA7AB6100C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6253A8-4C2A-43D7-8172-5BA7AB6100C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329F6B6C-5EC3-44B4-93EE-6B275A6B9CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329F6B6C-5EC3-44B4-93EE-6B275A6B9CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329F6B6C-5EC3-44B4-93EE-6B275A6B9CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329F6B6C-5EC3-44B4-93EE-6B275A6B9CC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
