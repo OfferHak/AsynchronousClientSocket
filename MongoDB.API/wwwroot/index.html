@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB API - SignalR Test Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .connected { background-color: #d4edda; color: #155724; }
+        .disconnected { background-color: #f8d7da; color: #721c24; }
+        .message { background-color: #d1ecf1; color: #0c5460; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #6c757d; cursor: not-allowed; }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MongoDB API - SignalR Test Client</h1>
+        
+        <div id="status" class="status disconnected">Disconnected</div>
+        
+        <div>
+            <input type="text" id="clientName" placeholder="Enter client name" value="TestClient">
+            <button id="connectBtn" onclick="connect()">Connect</button>
+            <button id="disconnectBtn" onclick="disconnect()" disabled>Disconnect</button>
+        </div>
+        
+        <div>
+            <button onclick="registerClient()" id="registerBtn" disabled>Register for Notifications</button>
+            <button onclick="unregisterClient()" id="unregisterBtn" disabled>Unregister</button>
+        </div>
+        
+        <div>
+            <h3>Messages</h3>
+            <div id="messages"></div>
+        </div>
+        
+        <div>
+            <h3>Test API Calls</h3>
+            <button onclick="testGetSamples()">Get All Samples</button>
+            <button onclick="testCreateSample()">Create Sample</button>
+            <button onclick="testGetCount()">Get Sample Count</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@microsoft/signalr@latest/dist/browser/signalr.min.js"></script>
+    <script>
+        let connection = null;
+        let isConnected = false;
+
+        function connect() {
+            const clientName = document.getElementById('clientName').value;
+            if (!clientName) {
+                alert('Please enter a client name');
+                return;
+            }
+
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl("/notificationHub")
+                .build();
+
+            connection.start().then(function () {
+                isConnected = true;
+                updateStatus('Connected', 'connected');
+                document.getElementById('connectBtn').disabled = true;
+                document.getElementById('disconnectBtn').disabled = false;
+                document.getElementById('registerBtn').disabled = false;
+                addMessage('Connected to SignalR hub');
+            }).catch(function (err) {
+                addMessage('Connection error: ' + err.toString());
+            });
+
+            connection.on("ClientRegistered", function (message) {
+                addMessage('Registration confirmed: ' + message);
+                document.getElementById('unregisterBtn').disabled = false;
+            });
+
+            connection.on("NewSampleAdded", function (data) {
+                addMessage('New sample added: ' + JSON.stringify(data));
+            });
+
+            connection.on("BroadcastMessage", function (data) {
+                addMessage('Broadcast message: ' + JSON.stringify(data));
+            });
+
+            connection.on("Connected", function (message) {
+                addMessage('Hub message: ' + message);
+            });
+        }
+
+        function disconnect() {
+            if (connection) {
+                connection.stop();
+                isConnected = false;
+                updateStatus('Disconnected', 'disconnected');
+                document.getElementById('connectBtn').disabled = false;
+                document.getElementById('disconnectBtn').disabled = true;
+                document.getElementById('registerBtn').disabled = true;
+                document.getElementById('unregisterBtn').disabled = true;
+                addMessage('Disconnected from SignalR hub');
+            }
+        }
+
+        function registerClient() {
+            const clientName = document.getElementById('clientName').value;
+            if (connection && isConnected) {
+                connection.invoke("RegisterClient", clientName);
+                addMessage('Registering client: ' + clientName);
+            }
+        }
+
+        function unregisterClient() {
+            if (connection && isConnected) {
+                connection.invoke("UnregisterClient");
+                addMessage('Unregistering client');
+            }
+        }
+
+        function updateStatus(message, className) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + className;
+        }
+
+        function addMessage(message) {
+            const messages = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        async function testGetSamples() {
+            try {
+                const response = await fetch('/api/samples');
+                const data = await response.json();
+                addMessage('Get samples response: ' + JSON.stringify(data, null, 2));
+            } catch (error) {
+                addMessage('Error getting samples: ' + error.toString());
+            }
+        }
+
+        async function testCreateSample() {
+            const sample = {
+                name: "Test Sample " + new Date().getTime(),
+                date: new Date().toISOString(),
+                hash: Math.random() * 1000,
+                lC_FC: Math.floor(Math.random() * 100),
+                sample: [{
+                    data: Math.random() * 100,
+                    vehicleDate: new Date().toISOString(),
+                    receivedDate: new Date().toISOString()
+                }]
+            };
+
+            try {
+                const response = await fetch('/api/samples', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sample)
+                });
+                const data = await response.json();
+                addMessage('Create sample response: ' + JSON.stringify(data, null, 2));
+            } catch (error) {
+                addMessage('Error creating sample: ' + error.toString());
+            }
+        }
+
+        async function testGetCount() {
+            try {
+                const response = await fetch('/api/samples/count');
+                const data = await response.json();
+                addMessage('Sample count: ' + data.count);
+            } catch (error) {
+                addMessage('Error getting count: ' + error.toString());
+            }
+        }
+    </script>
+</body>
+</html>
