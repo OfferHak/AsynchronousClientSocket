@@ -1,0 +1,385 @@
+{
+  "info": {
+    "name": "MongoDB Generic API",
+    "description": "Complete API collection for MongoDB Generic API with Clean Architecture",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "mongodb-api-collection"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Samples API",
+      "item": [
+        {
+          "name": "Get All Samples",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/samples?page=1&pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "pageSize", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Sample by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/samples/{{sampleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples", "{{sampleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Samples by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/samples/by-name/TestSample",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples", "by-name", "TestSample"]
+            }
+          }
+        },
+        {
+          "name": "Get Samples by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/samples/by-date-range?startDate=2024-01-01&endDate=2024-12-31",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples", "by-date-range"],
+              "query": [
+                {"key": "startDate", "value": "2024-01-01"},
+                {"key": "endDate", "value": "2024-12-31"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Latest Sample",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/samples/latest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples", "latest"]
+            }
+          }
+        },
+        {
+          "name": "Create Sample",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2024-01-15T10:30:00Z\",\n  \"name\": \"Test Sample\",\n  \"hash\": 123.456,\n  \"lc_FC\": 789,\n  \"sample\": [\n    {\n      \"data\": 42.5,\n      \"vahicleDate\": \"2024-01-15T09:00:00Z\",\n      \"recievedDate\": \"2024-01-15T10:30:00Z\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/samples",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('sampleId', jsonData.data.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Sample",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2024-01-15T11:00:00Z\",\n  \"name\": \"Updated Test Sample\",\n  \"hash\": 999.888,\n  \"lc_FC\": 555,\n  \"sample\": [\n    {\n      \"data\": 99.9,\n      \"vahicleDate\": \"2024-01-15T10:00:00Z\",\n      \"recievedDate\": \"2024-01-15T11:00:00Z\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/samples/{{sampleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples", "{{sampleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Sample",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/samples/{{sampleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "samples", "{{sampleId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Generic Documents API",
+      "item": [
+        {
+          "name": "Get All Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collections/mycollection/documents?page=1&pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collections", "mycollection", "documents"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "pageSize", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Document by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collections/mycollection/documents/{{documentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collections", "mycollection", "documents", "{{documentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customField\": \"Custom Value\",\n  \"numericField\": 123,\n  \"booleanField\": true,\n  \"arrayField\": [1, 2, 3],\n  \"nestedObject\": {\n    \"property1\": \"value1\",\n    \"property2\": \"value2\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collections/mycollection/documents",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collections", "mycollection", "documents"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('documentId', jsonData.data.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Document",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customField\": \"Updated Custom Value\",\n  \"numericField\": 456,\n  \"booleanField\": false,\n  \"newField\": \"Added field\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collections/mycollection/documents/{{documentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collections", "mycollection", "documents", "{{documentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collections/mycollection/documents/{{documentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collections", "mycollection", "documents", "{{documentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Document Count",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collections/mycollection/documents/count",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collections", "mycollection", "documents", "count"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SignalR Clients API",
+      "item": [
+        {
+          "name": "Get Active Clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/signalrclients/active",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "signalrclients", "active"]
+            }
+          }
+        },
+        {
+          "name": "Get Client by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/signalrclients/by-name/TestClient",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "signalrclients", "by-name", "TestClient"]
+            }
+          }
+        },
+        {
+          "name": "Register Client (Testing)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"TestClient\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/signalrclients/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "signalrclients", "register"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('connectionId', jsonData.data.connectionId);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Unregister Client",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/signalrclients/unregister/{{connectionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "signalrclients", "unregister", "{{connectionId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Client Activity",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/signalrclients/activity/{{connectionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "signalrclients", "activity", "{{connectionId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health & Info",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
